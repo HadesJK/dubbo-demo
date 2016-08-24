@@ -16,5 +16,6 @@ public class Consumer {
         }
         HelloService helloService = context.getBean(HelloService.class);
         System.out.println(helloService.sayHello("world"));
+        System.out.println(helloService.sum(1021, 302));
     }
 }
