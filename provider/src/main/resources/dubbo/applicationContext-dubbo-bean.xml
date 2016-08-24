@@ -7,7 +7,7 @@
        http://code.alibabatech.com/schema/dubbo
        http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
 
-    <dubbo:service interface="com.jql.yifan.service.HelloService" ref="helloService">
+    <dubbo:service interface="com.jql.yifan.service.HelloService" ref="helloService" version="1.0.1">
         <dubbo:method name="sayHello" timeout="200"/>
         <dubbo:method name="sum" timeout="500"/>
     </dubbo:service>

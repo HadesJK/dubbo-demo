@@ -1,6 +1,6 @@
 #dubbo
 
-![参考](http://dubbo.io/)
+[http://dubbo.io/]
 
 [TOC]
 

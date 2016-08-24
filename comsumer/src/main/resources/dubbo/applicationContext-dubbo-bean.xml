@@ -7,6 +7,6 @@
        http://code.alibabatech.com/schema/dubbo
        http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
 
-    <dubbo:reference interface="com.jql.yifan.service.HelloService" id="helloService"/>
+    <dubbo:reference interface="com.jql.yifan.service.HelloService" id="helloService" version="1.0.1"/>
 
 </beans>
