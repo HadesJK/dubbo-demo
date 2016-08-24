@@ -52,8 +52,39 @@
 
 duubo开发者给出的建议：
 **其中，服务提供方配置，通过URL经由注册中心传递给消费方。**
+
 **建议由服务提供方设置超时，因为一个方法需要执行多长时间，服务提供方更清楚，如果一个消费方同时引用多个服务，就不需要关心每个服务的超时设置。**
+
 理论上ReferenceConfig的非服务标识配置，在ConsumerConfig，ServiceConfig, ProviderConfig均可以缺省配置。
 
+## 负载均衡
+
+dubbo 默认实现了以下几种负载均衡算法：
+
+- **Random LoadBalance**
+随机，按权重设置随机概率。
+在一个截面上碰撞的概率高，但调用量越大分布越均匀，而且按概率使用权重后也比较均匀，有利于动态调整提供者权重。
+
+- **RoundRobin LoadBalance**
+轮循，按公约后的权重设置轮循比率。
+存在慢的提供者累积请求问题，比如：第二台机器很慢，但没挂，当请求调到第二台时就卡在那，久而久之，所有请求都卡在调到第二台上。
+
+
+- **LeastActive LoadBalance**
+最少活跃调用数，相同活跃数的随机，活跃数指调用前后计数差。
+使慢的提供者收到更少请求，因为越慢的提供者的调用前后计数差会越大。
+
+
+- **ConsistentHash LoadBalance**
+一致性Hash，相同参数的请求总是发到同一提供者。
+当某一台提供者挂时，原本发往该提供者的请求，基于虚拟节点，平摊到其它提供者，不会引起剧烈变动。算法参见：http://en.wikipedia.org/wiki/Consistent_hashing。
+缺省只对第一个参数Hash，如果要修改，请配置
+```
+<dubbo:parameter key="hash.arguments" value="0,1" />
+```
+缺省用160份虚拟节点，如果要修改，请配置
+```
+<dubbo:parameter key="hash.nodes" value="320" />
+```
 
 
