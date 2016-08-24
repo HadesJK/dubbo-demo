@@ -39,5 +39,8 @@
 
 - <dubbo:argument/> 用于指定方法参数配置。
 
+## 参数加载优先级
+
+![](src/dubbo-config-override.jpg)
 
 
