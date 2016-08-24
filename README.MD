@@ -41,6 +41,6 @@
 
 ## 参数加载优先级
 
-![](src/dubbo-config-override.jpg)
+![](img/dubbo-config-override.jpg)
 
 
