@@ -307,8 +307,50 @@ java -Dcom.alibaba.xxx.XxxService=dubbo://localhost:20888
 <dubbo:reference id="barService" interface="com.foo.BarService" version="*" />
 ```
 
+## 回声测试
 
+（内部使用字节码技术）所有服务自动实现EchoService接口，只需将任意服务引用强制转型为EchoService，即可使用。回声测试用于检测服务是否可用，回声测试按照正常请求流程执行，能够测试整个调用是否通畅，可用于监控。
 
+```java
+EchoService echoService = (EchoService) messageService;
+System.out.println(echoService.$echo("hades"));
+```
+
+## 上下文信息
+
+使用RpcContext类记录，这个类是一个ThreadLocal的临时状态记录器，当接收到RPC请求，或发起RPC请求时，RpcContext的状态都会变化。
+
+## 隐式传参
+
+也适用RpcContext，请看图：
+
+![](img/context.png)
+
+使用场景：
+**用于框架集成，不建议常规业务使用。尽量不要用！尽量不要用！尽量不要用！耦合度太高了！**
+**注意：setAttachment设置的KV，在完成下面一次远程调用会被清空。即多次远程调用要多次设置。**
+
+使用方法：
+```java
+// 服务消费者
+HelloService helloService = context.getBean(HelloService.class);
+RpcContext.getContext().setAttachment("ErrorDay", "20140401");
+System.out.println(helloService.sayHello("world"));
+RpcContext.getContext().setAttachment("Method", "sum");
+System.out.println(helloService.sum(1021, 302));
+        
+// 服务提供者
+@Service("messageService")
+public class MessageServiceImpl implements MessageService {
+    @Override
+    public boolean sendMessage(String from, String to, String content) {
+        System.out.println("message from: " + from);
+        System.out.println("message to: " + to);
+        System.out.println("message content: " + content);
+        return true;
+    }
+}
+```
 
 
 

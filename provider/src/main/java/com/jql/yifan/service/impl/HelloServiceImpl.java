@@ -1,5 +1,6 @@
 package com.jql.yifan.service.impl;
 
+import com.alibaba.dubbo.rpc.RpcContext;
 import com.jql.yifan.service.HelloService;
 import org.springframework.stereotype.Service;
 
@@ -11,11 +12,14 @@ import org.springframework.stereotype.Service;
 public class HelloServiceImpl implements HelloService {
     @Override
     public String sayHello(String name) {
+        System.out.println(RpcContext.getContext().getAttachment("ErrorDay"));
         return "Hello " + name + "!";
     }
 
     @Override
     public long sum(int arg1, int arg2) {
+        if ("multi".equals(RpcContext.getContext().getAttachment("Method")))
+            return arg1 * arg2;
         return arg1 + arg2;
     }
 }
