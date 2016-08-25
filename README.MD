@@ -340,14 +340,19 @@ RpcContext.getContext().setAttachment("Method", "sum");
 System.out.println(helloService.sum(1021, 302));
         
 // 服务提供者
-@Service("messageService")
-public class MessageServiceImpl implements MessageService {
+@Service("helloService")
+public class HelloServiceImpl implements HelloService {
     @Override
-    public boolean sendMessage(String from, String to, String content) {
-        System.out.println("message from: " + from);
-        System.out.println("message to: " + to);
-        System.out.println("message content: " + content);
-        return true;
+    public String sayHello(String name) {
+        System.out.println(RpcContext.getContext().getAttachment("ErrorDay"));
+        return "Hello " + name + "!";
+    }
+
+    @Override
+    public long sum(int arg1, int arg2) {
+        if ("multi".equals(RpcContext.getContext().getAttachment("Method")))
+            return arg1 * arg2;
+        return arg1 + arg2;
     }
 }
 ```
