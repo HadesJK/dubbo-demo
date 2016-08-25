@@ -176,3 +176,39 @@ dubbo.protocol.threads=20
 **[dubbo%3A%2F%2F10.242.92.158%3A20880%2Fcom.jql.yifan.service.HelloService%3Fanyhost%3Dtrue%26application%3Dconsumer-9587%26dispatcher%3Dall%26dubbo%3D2.5.3%26interface%3Dcom.jql.yifan.service.HelloService%26methods%3DsayHello%2Csum%26pid%3D9560%26revision%3D1.0.1%26sayHello.timeout%3D200%26side%3Dprovider%26sum.timeout%3D500%26threadpool%3Dfixed%26threads%3D20%26timestamp%3D1472089699699%26version%3D1.0.1]**
 
 可以看到节点信息的一些关键字：dispatcher，all，threadpool，fixed，threads等。
+
+## 直连提供者
+
+这个功能为开发测试用的，绕过注册中心，只测试指定服务提供者。
+
+这时候可能需要点对点直连，点对点直连方式，**将以服务接口为单位**，忽略注册中心的提供者列表，
+A接口配置点对点，不影响B接口从注册中心获取列表。
+
+![](img/dubbo-directly.jpg)
+
+需要直连提供者，只需要在消费者的配置文件中修改引用的服务：
+```xml
+
+<dubbo:reference id="xxxService" interface="com.alibaba.xxx.XxxService" url="dubbo://localhost:20888" />
+```
+或者加入运行参数：
+```xml
+java -Dcom.alibaba.xxx.XxxService=dubbo://localhost:20888
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

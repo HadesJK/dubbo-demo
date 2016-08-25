@@ -7,6 +7,13 @@
        http://code.alibabatech.com/schema/dubbo
        http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
 
-    <dubbo:reference interface="com.jql.yifan.service.HelloService" id="helloService" version="1.0.1"/>
+    <dubbo:reference interface="com.jql.yifan.service.HelloService"
+                     id="helloService"
+                     version="1.0.1"/>
+
+    <dubbo:reference interface="com.jql.yifan.service.MessageService"
+                     id="messageService"
+                     version="1.0.1"
+                     url="dubbo://localhost:20888"/>
 
 </beans>
