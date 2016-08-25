@@ -149,3 +149,31 @@ dubbo 默认实现了以下几种负载均衡算法，默认采用随机算法�
 
 从上面可以看出，**这个配置是全局的，而且是配置在服务提供者这一端的**。
 
+**dubbo 服务提供者的配置如下**
+```xml
+# dubbo 服务提供者配置
+
+# 应用名称
+dubbo.application.name=consumer-9587
+
+# 注册中心地址和端口
+dubbo.registry.address=zookeeper://10.240.178.73:2181
+
+# dubbo 服务协议
+dubbo.protocol.name=dubbo
+
+# dubbo 服务端口
+dubbo.protocol.port=20880
+
+# 线程模型
+## dispatcher: all/direct/message/execution/connection
+dubbo.protocol.dispatcher=all
+## threadpool: fixed/cached/limited
+dubbo.protocol.threadpool=fixed
+dubbo.protocol.threads=20
+```
+**在zk上查询provider节点的信息**
+```xml
+[dubbo%3A%2F%2F10.242.92.158%3A20880%2Fcom.jql.yifan.service.HelloService%3Fanyhost%3Dtrue%26application%3Dconsumer-9587%26dispatcher%3Dall%26dubbo%3D2.5.3%26interface%3Dcom.jql.yifan.service.HelloService%26methods%3DsayHello%2Csum%26pid%3D9560%26revision%3D1.0.1%26sayHello.timeout%3D200%26side%3Dprovider%26sum.timeout%3D500%26threadpool%3Dfixed%26threads%3D20%26timestamp%3D1472089699699%26version%3D1.0.1]
+```
+可以看到节点信息的一些关键字：dispatcher，all，threadpool，fixed，threads等。

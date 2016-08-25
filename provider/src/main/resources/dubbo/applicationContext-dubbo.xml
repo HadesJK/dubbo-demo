@@ -16,7 +16,11 @@
 
     <dubbo:registry address="${dubbo.registry.address}"/>
 
-    <dubbo:protocol name="${dubbo.protocol.name}" port="${dubbo.protocol.port}"/>
+    <dubbo:protocol name="${dubbo.protocol.name}"
+                    port="${dubbo.protocol.port}"
+                    dispatcher="${dubbo.protocol.dispatcher}"
+                    threadpool="${dubbo.protocol.threadpool}"
+                    threads="${dubbo.protocol.threads}"/>
 
     <import resource="classpath:/dubbo/applicationContext-dubbo-bean.xml"/>
 
