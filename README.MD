@@ -59,7 +59,7 @@ duubo开发者给出的建议：
 
 ## 负载均衡
 
-dubbo 默认实现了以下几种负载均衡算法：
+dubbo 默认实现了以下几种负载均衡算法，默认采用随机算法：
 
 - **Random LoadBalance**
 随机，按权重设置随机概率。
@@ -79,12 +79,26 @@ dubbo 默认实现了以下几种负载均衡算法：
 一致性Hash，相同参数的请求总是发到同一提供者。
 当某一台提供者挂时，原本发往该提供者的请求，基于虚拟节点，平摊到其它提供者，不会引起剧烈变动。算法参见：http://en.wikipedia.org/wiki/Consistent_hashing。
 缺省只对第一个参数Hash，如果要修改，请配置
-```
-<dubbo:parameter key="hash.arguments" value="0,1" />
-```
+**<dubbo:parameter key="hash.arguments" value="0,1" />**
 缺省用160份虚拟节点，如果要修改，请配置
-```
-<dubbo:parameter key="hash.nodes" value="320" />
+**<dubbo:parameter key="hash.nodes" value="320" />**
+
+负载均衡可以配置在服务提供者端，也可以配置在服务消费者端，细粒度在接口级别和方法级别。
+官方给出如下配置：
+```xml
+// 服务提供者配置负载均衡，消费者被动接受，细粒度：接口级别
+<dubbo:service interface="..." loadbalance="roundrobin" />
+// 消费者主动配置负载均衡，细粒度：接口级别
+<dubbo:reference interface="..." loadbalance="roundrobin" />
+// 服务提供者配置负载均衡，消费者被动接受，细粒度：方法级别
+<dubbo:service interface="...">
+    <dubbo:method name="..." loadbalance="roundrobin"/>
+</dubbo:service>
+// 消费者主动配置负载均衡，细粒度：方法界别
+<dubbo:reference interface="...">
+    <dubbo:method name="..." loadbalance="roundrobin"/>
+</dubbo:reference>
 ```
 
+**那么问题来了，服务提供者和消费者的配置，谁的优先级别高？个人觉得和之前的参数优先级别一样，服务消费者高于服务提供者的配置；方法级别高于接口级别。**
 
