@@ -13,4 +13,8 @@ public interface MessageService {
      * @return true:发送成功  false:发送失败
      */
     boolean sendMessage(String from, String to, String content);
+
+    String getMessage(int messageId);
+
+
 }

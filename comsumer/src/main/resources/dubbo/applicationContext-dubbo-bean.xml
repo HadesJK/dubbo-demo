@@ -12,9 +12,16 @@
                      version="1.0.1"
                      url="dubbo://localhost:20888"/>
 
+    <bean id="notify" class="com.jql.yifan.NotifyImpl"/>
     <dubbo:reference interface="com.jql.yifan.service.MessageService"
                      id="messageService"
                      version="1.0.1"
-                     url="dubbo://localhost:20888"/>
+                     url="dubbo://localhost:20888">
+        <dubbo:method name="getMessage"
+                      async="true"
+                      onreturn="notify.onReturn"
+                      onthrow="notify.onThrow"/>
+    </dubbo:reference>
+
 
 </beans>

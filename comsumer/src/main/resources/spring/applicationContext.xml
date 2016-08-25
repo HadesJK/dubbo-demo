@@ -8,7 +8,7 @@
        http://www.springframework.org/schema/context/spring-context.xsd">
 
     <context:annotation-config/>
-    <context:component-scan base-package="com.jql.yifan.service"/>
+    <context:component-scan base-package="com.jql.yifan"/>
 
     <import resource="classpath:/dubbo/applicationContext-dubbo.xml"/>
 

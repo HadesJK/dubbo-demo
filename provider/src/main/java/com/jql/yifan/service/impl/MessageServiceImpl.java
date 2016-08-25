@@ -16,4 +16,13 @@ public class MessageServiceImpl implements MessageService {
         System.out.println("message content: " + content);
         return true;
     }
+
+    @Override
+    public String getMessage(int messageId) {
+        if (messageId > 100)
+            return "Hello world.";
+        else if (messageId > 50)
+            return messageId + "";
+        throw new IllegalArgumentException("illegal argument.");
+    }
 }

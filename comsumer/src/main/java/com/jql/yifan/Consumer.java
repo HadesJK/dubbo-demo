@@ -20,6 +20,7 @@ public class Consumer {
         if (context == null) {
             System.out.println("Error!");
         }
+
         MessageService messageService = context.getBean(MessageService.class);
         System.out.println(messageService.sendMessage("jql", "yifan", "Miss you much!"));
         System.out.println(RpcContext.getContext().getUrl());
@@ -35,6 +36,13 @@ public class Consumer {
         System.out.println(echoService.$echo("hades"));
         Assert.hasText("hades");
         System.out.println(RpcContext.getContext().getUrl());
+
+        // 同步下,两个方法没有结果
+        System.out.println("###" + messageService.getMessage(16));
+        System.out.println("###" + messageService.getMessage(66));
+
+
+
         System.in.read();
     }
 }
