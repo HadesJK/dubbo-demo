@@ -173,7 +173,6 @@ dubbo.protocol.threadpool=fixed
 dubbo.protocol.threads=20
 ```
 **在zk上查询provider节点的信息**
-```xml
-[dubbo%3A%2F%2F10.242.92.158%3A20880%2Fcom.jql.yifan.service.HelloService%3Fanyhost%3Dtrue%26application%3Dconsumer-9587%26dispatcher%3Dall%26dubbo%3D2.5.3%26interface%3Dcom.jql.yifan.service.HelloService%26methods%3DsayHello%2Csum%26pid%3D9560%26revision%3D1.0.1%26sayHello.timeout%3D200%26side%3Dprovider%26sum.timeout%3D500%26threadpool%3Dfixed%26threads%3D20%26timestamp%3D1472089699699%26version%3D1.0.1]
-```
+**[dubbo%3A%2F%2F10.242.92.158%3A20880%2Fcom.jql.yifan.service.HelloService%3Fanyhost%3Dtrue%26application%3Dconsumer-9587%26dispatcher%3Dall%26dubbo%3D2.5.3%26interface%3Dcom.jql.yifan.service.HelloService%26methods%3DsayHello%2Csum%26pid%3D9560%26revision%3D1.0.1%26sayHello.timeout%3D200%26side%3Dprovider%26sum.timeout%3D500%26threadpool%3Dfixed%26threads%3D20%26timestamp%3D1472089699699%26version%3D1.0.1]**
+
 可以看到节点信息的一些关键字：dispatcher，all，threadpool，fixed，threads等。
