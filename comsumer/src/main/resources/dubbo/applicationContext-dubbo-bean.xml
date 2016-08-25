@@ -9,7 +9,8 @@
 
     <dubbo:reference interface="com.jql.yifan.service.HelloService"
                      id="helloService"
-                     version="1.0.1"/>
+                     version="1.0.1"
+                     url="dubbo://localhost:20888"/>
 
     <dubbo:reference interface="com.jql.yifan.service.MessageService"
                      id="messageService"

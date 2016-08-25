@@ -196,6 +196,118 @@ A接口配置点对点，不影响B接口从注册中心获取列表。
 java -Dcom.alibaba.xxx.XxxService=dubbo://localhost:20888
 ```
 
+## 只订阅
+
+直连服务提供者存在一个风险：为方便开发测试，经常会在线下共用一个所有服务可用的注册中心，这时，如果一个正在开发中的服务提供者注册，可能会影响消费者不能正常运行。
+
+所以对直连服务提供者更好的改进是直连基础上，服务提供者不向注册中心发布正在开发的服务，而消费者直连正在开发的服务。
+
+因此在服务提供者的配置文件中，禁止向注册中心注册：
+```xml
+<dubbo:registry address="${dubbo.registry.address}" register="false"/>
+```
+而服务消费的配置文件中，直连服务提供者：
+```xml
+    <dubbo:reference interface="com.jql.yifan.service.HelloService"
+                     id="helloService"
+                     version="1.0.1"
+                     url="dubbo://localhost:20888"/>
+
+    <dubbo:reference interface="com.jql.yifan.service.MessageService"
+                     id="messageService"
+                     version="1.0.1"
+                     url="dubbo://localhost:20888"/>
+```
+
+## 只注册
+
+此功能对于一个节点，即使服务提供者，又是服务消费者来说，比较有用。请看官网。
+
+## 多协议暴露服务
+
+下面配置中，发布了3个服务，1个用dubbo暴露，1个用hessian暴露，1个用dubbo/hessian都暴露。
+
+```xml<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://code.alibabatech.com/schema/dubbo
+       http://code.alibabatech.com/schema/dubbo/dubbo.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:property-placeholder location="classpath:/dubbo/dubbo.properties"/>
+
+    <dubbo:application name="${dubbo.application.name}"/>
+
+    <!--开发完成后,需要将register改成true,或者删除这个属性,否则注册中心没有该服务发布的节点信息-->
+    <dubbo:registry address="${dubbo.registry.address}" register="false"/>
+
+    // dubbo协议
+    <dubbo:protocol name="dubbo"
+                    port="${dubbo.protocol.port}"
+                    dispatcher="${dubbo.protocol.dispatcher}"
+                    threadpool="${dubbo.protocol.threadpool}"
+                    threads="${dubbo.protocol.threads}"/>
+    // hessian 协议
+    <dubbo:protocol name="hessian"
+                    port="${hessian.protocol.port}"
+                    dispatcher="${hessian.protocol.dispatcher}"
+                    threadpool="${hessian.protocol.threadpool}"
+                    threads="${hessian.protocol.threads}"/>
+
+    <!-- 使用多个协议暴露服务 -->
+    <dubbo:service id="serviceAAA" interface="com.jql.service.ServiceAAA" version="1.0.0" protocol="dubbo,hessian" />
+
+    <!-- 使用dubbo协议暴露服务 -->
+    <dubbo:service interface="com.jql.service.ServiceBBB" version="1.0.0" ref="serviceBBB" protocol="dubbo" />
+    <!-- 使用rmi协议暴露服务 -->
+    <dubbo:service interface="com.jql.service.ServiceCCC" version="1.0.0" ref="serviceCCC" protocol="rmi" />
+
+</beans>
+```
+
+## 服务分组
+
+当一个接口有多种实现时，可以用group区分。
+
+```xml
+// 服务提供者
+<dubbo:service group="feedback" interface="com.xxx.IndexService" />
+<dubbo:service group="member" interface="com.xxx.IndexService" />
+//服务消费者
+<dubbo:reference id="feedbackIndexService" group="feedback" interface="com.xxx.IndexService" />
+<dubbo:reference id="memberIndexService" group="member" interface="com.xxx.IndexService" />
+// 消费者可以选择使用任意分组
+<dubbo:reference id="barService" interface="com.foo.BarService" group="*" />
+```
+
+## 多版本
+
+当一个接口实现，出现不兼容升级时，可以用版本号过渡，**版本号不同的服务相互间不引用**。
+
+**升级策略：**
+**1. 在低压力时间段，先升级一半提供者为新版本**
+**2. 再将所有消费者升级为新版本**
+**3. 然后将剩下的一半提供者升级为新版本**
+这样子，当第2步出现问题时，可以下线升级的那一半服务提供者，而不影响业务；当第二步升级成功时，再升级第3步。
+
+```xml
+// 服务提供者
+<dubbo:service interface="com.foo.BarService" version="1.0.0" />
+<dubbo:service interface="com.foo.BarService" version="2.0.0" />
+// 服务消费者
+<dubbo:reference id="barService" interface="com.foo.BarService" version="1.0.0" />
+<dubbo:reference id="barService" interface="com.foo.BarService" version="2.0.0" />
+// 消费者可以选择忽略版本号调用
+<dubbo:reference id="barService" interface="com.foo.BarService" version="*" />
+```
+
+
+
 
 
 
