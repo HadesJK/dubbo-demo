@@ -188,7 +188,6 @@ A接口配置点对点，不影响B接口从注册中心获取列表。
 
 需要直连提供者，只需要在消费者的配置文件中修改引用的服务：
 ```xml
-
 <dubbo:reference id="xxxService" interface="com.alibaba.xxx.XxxService" url="dubbo://localhost:20888" />
 ```
 或者加入运行参数：
@@ -227,7 +226,8 @@ java -Dcom.alibaba.xxx.XxxService=dubbo://localhost:20888
 
 下面配置中，发布了3个服务，1个用dubbo暴露，1个用hessian暴露，1个用dubbo/hessian都暴露。
 
-```xml<?xml version="1.0" encoding="UTF-8"?>
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
@@ -278,7 +278,8 @@ java -Dcom.alibaba.xxx.XxxService=dubbo://localhost:20888
 // 服务提供者
 <dubbo:service group="feedback" interface="com.xxx.IndexService" />
 <dubbo:service group="member" interface="com.xxx.IndexService" />
-// 服务消费者
+// 
+服务消费者
 <dubbo:reference id="feedbackIndexService" group="feedback" interface="com.xxx.IndexService" />
 <dubbo:reference id="memberIndexService" group="member" interface="com.xxx.IndexService" />
 // 消费者可以选择使用任意分组
