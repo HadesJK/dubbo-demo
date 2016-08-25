@@ -16,7 +16,8 @@
 
     <dubbo:service interface="com.jql.yifan.service.MessageService"
                    ref="messageService"
-                   version="1.0.1">
+                   version="1.0.1"
+                   token="yklo">
         <dubbo:method name="sendMessage" loadbalance="random"/>
     </dubbo:service>
 

@@ -382,6 +382,18 @@ public class HelloServiceImpl implements HelloService {
 
 **onInvoke没有实验成功！**
 
+## 令牌验证
+
+- **防止消费者绕过注册中心访问提供者**
+- 在注册中心控制权限，以决定要不要下发令牌给消费者
+- 注册中心可灵活改变授权方式，而不需修改或升级提供者
+
+```xml
+因此需要将之前这段代码改回来，想注册中心注册服务
+<dubbo:registry address="${dubbo.registry.address}" register="true"/>
+```
+
+
 
 
 
