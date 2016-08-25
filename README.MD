@@ -357,6 +357,45 @@ public class HelloServiceImpl implements HelloService {
 }
 ```
 
+## 事件通知
+
+在调用之前，调用之后，出现异常时，会触发oninvoke, onreturn, onthrow三个事件，可以配置当事件发生时，通知哪个类的哪个方法。
+
+**异步模式下，该通知就非常有用了。**
+
+代码具体看消费者工程中的Notify接口和NotifyImpl部分。
+
+服务提供者不需要做任何改变，消费者配置如下：
+
+```xml
+    <bean id="notify" class="com.jql.yifan.NotifyImpl"/>
+    <dubbo:reference interface="com.jql.yifan.service.MessageService"
+                     id="messageService"
+                     version="1.0.1"
+                     url="dubbo://localhost:20888">
+        <dubbo:method name="getMessage"
+                      async="true"
+                      onreturn="notify.onReturn"
+                      onthrow="notify.onThrow"/>
+    </dubbo:reference>
+```
+
+**onInvoke没有实验成功！**
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
