@@ -278,7 +278,7 @@ java -Dcom.alibaba.xxx.XxxService=dubbo://localhost:20888
 // 服务提供者
 <dubbo:service group="feedback" interface="com.xxx.IndexService" />
 <dubbo:service group="member" interface="com.xxx.IndexService" />
-//服务消费者
+// 服务消费者
 <dubbo:reference id="feedbackIndexService" group="feedback" interface="com.xxx.IndexService" />
 <dubbo:reference id="memberIndexService" group="member" interface="com.xxx.IndexService" />
 // 消费者可以选择使用任意分组
