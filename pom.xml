@@ -20,7 +20,10 @@
         <spring.version>3.1.0.RELEASE</spring.version>
         <dubbo.version>2.5.3</dubbo.version>
         <zkclient.version>0.5</zkclient.version>
+        <sgroschupf.zkclient.version>0.1</sgroschupf.zkclient.version>
+        <curator.zkclient.version>1.1.16</curator.zkclient.version>
     </properties>
+
     <dependencyManagement>
         <dependencies>
             <!-- spring -->
@@ -45,6 +48,7 @@
                 <artifactId>spring-context</artifactId>
                 <version>${spring.version}</version>
             </dependency>
+
             <!-- dubbo -->
             <dependency>
                 <groupId>com.alibaba</groupId>
@@ -52,10 +56,23 @@
                 <version>${dubbo.version}</version>
             </dependency>
 
+            <!--zk client:101tec-->
             <dependency>
                 <groupId>com.101tec</groupId>
                 <artifactId>zkclient</artifactId>
                 <version>${zkclient.version}</version>
+            </dependency>
+            <!--zk client:sgroschupf-->
+            <dependency>
+                <groupId>com.github.sgroschupf</groupId>
+                <artifactId>zkclient</artifactId>
+                <version>${sgroschupf.zkclient.version}</version>
+            </dependency>
+            <!--zk client:curator-->
+            <dependency>
+                <groupId>com.netflix.curator</groupId>
+                <artifactId>curator-framework</artifactId>
+                <version>${curator.zkclient.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

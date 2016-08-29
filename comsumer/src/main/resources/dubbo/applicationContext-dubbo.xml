@@ -15,7 +15,7 @@
 
     <dubbo:application name="${dubbo.application.name}"/>
 
-    <dubbo:registry address="${dubbo.registry.address}"/>
+    <dubbo:registry address="${dubbo.registry.address}" client="curator"/>
 
     <import resource="classpath:/dubbo/applicationContext-dubbo-bean.xml"/>
 

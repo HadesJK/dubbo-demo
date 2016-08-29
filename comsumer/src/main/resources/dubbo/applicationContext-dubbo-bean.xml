@@ -10,7 +10,12 @@
     <dubbo:reference interface="com.jql.yifan.service.HelloService"
                      id="helloService"
                      version="1.0.1"
-                     url="dubbo://localhost:20888"/>
+                     mock="true">
+        <dubbo:method name="sayHello"
+                      mock="true"/>
+        <dubbo:method name="sum"
+                      mock="return -1"/>
+    </dubbo:reference>
 
     <bean id="notify" class="com.jql.yifan.NotifyImpl"/>
     <dubbo:reference interface="com.jql.yifan.service.MessageService"

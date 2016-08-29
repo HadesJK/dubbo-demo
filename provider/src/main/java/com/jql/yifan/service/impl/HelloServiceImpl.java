@@ -13,6 +13,11 @@ public class HelloServiceImpl implements HelloService {
     @Override
     public String sayHello(String name) {
         System.out.println(RpcContext.getContext().getAttachment("ErrorDay"));
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return "Hello " + name + "!";
     }
 
@@ -20,6 +25,11 @@ public class HelloServiceImpl implements HelloService {
     public long sum(int arg1, int arg2) {
         if ("multi".equals(RpcContext.getContext().getAttachment("Method")))
             return arg1 * arg2;
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return arg1 + arg2;
     }
 }

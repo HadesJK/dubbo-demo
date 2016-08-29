@@ -41,8 +41,6 @@ public class Consumer {
         System.out.println("###" + messageService.getMessage(16));
         System.out.println("###" + messageService.getMessage(66));
 
-
-
         System.in.read();
     }
 }

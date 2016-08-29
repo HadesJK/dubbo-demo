@@ -11,12 +11,7 @@ import java.io.IOException;
  */
 public class Provider {
     public static void main(String[] args) throws IOException {
-//        ApplicationContext context = new ClassPathXmlApplicationContext("classpath:/dubbo/applicationContext-dubbo.xml");
-        ApplicationContext context = new ClassPathXmlApplicationContext(
-                "classpath:/spring/applicationContext.xml");
-        if (context == null) {
-            System.out.println("Error!");
-        }
+        ApplicationContext context = new ClassPathXmlApplicationContext("classpath:/spring/applicationContext.xml");
         System.in.read();
     }
 }

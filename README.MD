@@ -393,6 +393,16 @@ public class HelloServiceImpl implements HelloService {
 <dubbo:registry address="${dubbo.registry.address}" register="true"/>
 ```
 
+而且发布令牌的服务（接口）不再允许直连访问了！
+
+
+
+
+
+
+
+
+
 
 
 

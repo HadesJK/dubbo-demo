@@ -15,7 +15,7 @@
     <dubbo:application name="${dubbo.application.name}"/>
 
     <!--开发完成后,需要将register改成true,或者删除这个属性,否则注册中心没有该服务发布的节点信息-->
-    <dubbo:registry address="${dubbo.registry.address}" register="true"/>
+    <dubbo:registry address="${dubbo.registry.address}" register="true" client="curator"/>
 
     <dubbo:protocol name="${dubbo.protocol.name}"
                     port="${dubbo.protocol.port}"
